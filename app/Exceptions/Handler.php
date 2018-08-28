@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\ApiExceptionReport;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -15,6 +16,7 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         //
     ];
+
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
@@ -46,6 +48,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // 当请求api接口时 将方法拦截到自己的 ApiExceptionReport
+        //dd(env('API_DOMAIN'));
+
+        $requestHost = $request->getHost();
+
+        //dd($requestHost == env('API_DOMAIN'));
+        //dd($requestHost == config('app.api_domain'));
+        if ($requestHost == config('app.api_domain')) {
+            $reportor = ApiExceptionReport::make($exception);
+            if ($reportor->shouldReturn()) {
+                return $reportor->report();
+            }
+        }
+
         return parent::render($request, $exception);
     }
 }
