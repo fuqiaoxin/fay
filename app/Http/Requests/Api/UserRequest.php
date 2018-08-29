@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api;
 
 use App\Http\Requests\Request;
 
-class VerificationCodeRequest extends Request
+class UserRequest extends Request
 {
 
     /**
@@ -15,16 +15,9 @@ class VerificationCodeRequest extends Request
     public function rules()
     {
         return [
-            'phone' => 'required|regex:/^1[34578]\d{9}$/'
+            'name'      => 'string|min:2|max:200',
+            'email'     => 'email',
+            'password'  => 'string|min:6|max:30',
         ];
     }
-
-
-    public function attributes()
-    {
-        return [
-            'phone' => trans('web.phone'),
-        ];
-    }
-
 }

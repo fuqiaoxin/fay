@@ -48,13 +48,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //dd($exception);
         // 当请求api接口时 将方法拦截到自己的 ApiExceptionReport
-        //dd(env('API_DOMAIN'));
-
         $requestHost = $request->getHost();
-
-        //dd($requestHost == env('API_DOMAIN'));
-        //dd($requestHost == config('app.api_domain'));
         if ($requestHost == config('app.api_domain')) {
             $reportor = ApiExceptionReport::make($exception);
             if ($reportor->shouldReturn()) {

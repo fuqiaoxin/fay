@@ -17,4 +17,19 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::post('/verificationCodes','VerificationCodesController@store')->name('api.verificationCodes.store');
+// 手机获取验证码 相同IP 1 分钟内只允许调用一次
+Route::middleware('throttle:30,1')->post('/verificationCodes', 'VerificationCodesController@store')->name('api.verificationCodes.store');
+
+// 获取 token
+Route::post('/authorizations', 'AuthorizationsController@store')->name('api.authorizations.store');
+// 刷新 token
+Route::post('/authorizations/refresh', 'AuthorizationsController@update')->name('api.authorizations.update');
+
+// 需要 验证的接口
+Route::group([
+    'middleware' => ['throttle','auth:api']
+],function ($router) {
+    // 当前用户的基本信息
+    $router->get('/user','UsersController@me')->name('api.users.show');
+    $router->post('/user/update', 'UsersController@update')->name('api.users.update');
+});

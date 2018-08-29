@@ -5,6 +5,7 @@ namespace App\Helpers;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -43,7 +44,8 @@ class ApiExceptionReport
     public $doReport = [
         AuthenticationException::class => ['Authorization failed',401],
         ModelNotFoundException::class => ['该模型未找到',404],
-        ValidationException::class => [],
+        ValidationException::class => [],   // 请求参数基本验证错误类
+        ThrottleRequestsException::class => ['Too Many Attempts', 429],
     ];
 
     /**

@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Requests\Api;
-
 use App\Http\Requests\Request;
 
-class VerificationCodeRequest extends Request
+class AuthorizationRequest extends Request
 {
 
     /**
@@ -15,16 +14,16 @@ class VerificationCodeRequest extends Request
     public function rules()
     {
         return [
-            'phone' => 'required|regex:/^1[34578]\d{9}$/'
+            'verification_key'  => 'required',
+            'verification_code' => 'required',
         ];
     }
-
 
     public function attributes()
     {
         return [
-            'phone' => trans('web.phone'),
+            'verification_key'  => trans('web.sms_code_key'),
+            'verification_code' => trans('web.sms_code'),
         ];
     }
-
 }
