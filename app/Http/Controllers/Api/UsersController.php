@@ -33,6 +33,11 @@ class UsersController extends Controller
             $updateData['password'] = bcrypt($request->password);
         }
 
+        if ($request->avatar_image_id) {
+            $updateData['avatar_id'] = $request->avatar_image_id;
+        }
+
+
         $user = Auth::user();
 
         $user->update($updateData);

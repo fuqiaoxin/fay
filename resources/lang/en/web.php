@@ -19,5 +19,6 @@ return [
     'sms_code'    => 'SMS code',
     'sms_code_expired' => 'SMS code is expired',
     'sms_code_invalid' => 'SMS code is invalid',
+    'image.dimensions' => 'Image size need over 200px',
 
 ];

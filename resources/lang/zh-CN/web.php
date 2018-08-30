@@ -19,4 +19,5 @@ return [
     'sms_code'    => '短信验证码',
     'sms_code_expired' => '验证码已过期',
     'sms_code_invalid' => '验证码错误',
+    'image.dimensions' => '图片的清晰度不够，宽和高需要 200px 以上',
 ];

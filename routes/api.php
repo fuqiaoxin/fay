@@ -32,4 +32,5 @@ Route::group([
     // 当前用户的基本信息
     $router->get('/user','UsersController@me')->name('api.users.show');
     $router->post('/user/update', 'UsersController@update')->name('api.users.update');
+    $router->post('/upload','FileUploadController@store')->name('api.file.upload');
 });

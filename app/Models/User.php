@@ -10,7 +10,7 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
 
     // 填充字段
-    protected $fillable = ['name', 'phone','email','password'];
+    protected $fillable = ['name', 'phone','email','password','avatar_id'];
 
     //
     protected $hidden = ['password','remember_token'];
@@ -22,5 +22,19 @@ class User extends Authenticatable
             $credentials['email'] = $username :
             $credentials['phone'] = $username;
         return self::where($credentials)->first();
+    }
+
+    public function setAvatarAttribute()
+    {
+        $avatar = $this->avatar()->path;
+
+        $this->attributes['avatar'] = $avatar;
+    }
+
+    public function avatar()
+    {
+        return $this->hasOne(Image::class)->withDefault(function ($image) {
+            $image->id = $this->id;
+        });
     }
 }
