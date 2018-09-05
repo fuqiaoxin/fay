@@ -24,20 +24,21 @@ class FileUploadController extends Controller
         $max_width = $type == 'topic' ? 800 : 200;
         $result = $imageUpload->save($request->image, $folder, $file_prefix, $max_width);
 
-        $image->path = $result['path'];
-        $image->type = $type;
-        $image->user_id = Auth::user()->id;
-        $image->save();
+        if ($result) {
+            $image->path = $result['path'];
+            $image->type = $type;
+            $image->user_id = Auth::user()->id;
+            $image->save();
 
 
-        $data = [
-            'type' => $type,
-            'path' => $result['path'],
-            'image_id' => $image->id,
-        ];
-
-
-        return $this->success($data);
-
+            $data = [
+                'type' => $type,
+                'path' => $result['path'],
+                'image_id' => $image->id,
+            ];
+            return $this->success($data);
+        } else {
+            return $this->failed(trans('web.upload_error'));
+        }
     }
 }

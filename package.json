@@ -18,5 +18,9 @@
         "laravel-mix": "^2.0",
         "lodash": "^4.17.5",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "font-awesome": "^4.7.0",
+        "sweetalert2": "^7.26.14"
     }
 }

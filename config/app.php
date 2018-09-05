@@ -29,7 +29,10 @@ return [
     'env' => env('APP_ENV', 'production'),
 
     'api_domain'    => env('API_DOMAIN'),
-    //'admin_domain'  => env('ADMIN_DOMAIN'),
+    'admin_domain'  => env('ADMIN_DOMAIN'),
+
+    'log' => 'daily',
+    'log_max_files' => 30,
 
     /*
     |--------------------------------------------------------------------------
@@ -212,6 +215,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Admin' => \App\Services\Admin::class,
 
     ],
 

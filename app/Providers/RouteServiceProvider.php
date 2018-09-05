@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapAdminRoutes();
         //
     }
 
@@ -75,6 +76,20 @@ class RouteServiceProvider extends ServiceProvider
             'namespace'     => $this->namespace.'\Api'
         ], function ($router) {
             require base_path('routes/api.php');
+        });
+    }
+
+    /**
+     * 后台路由基础
+     */
+    protected function mapAdminRoutes()
+    {
+        Route::group([
+            'domain'        => config('app.admin_domain'),
+            'middleware'    => 'admin',
+            'namespace'     => $this->namespace.'\Admin'
+        ], function ($router) {
+            require base_path('routes/admin.php');
         });
     }
 }
